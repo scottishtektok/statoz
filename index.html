@@ -413,6 +413,17 @@ body{background-color:#f4f7fb;background-image:linear-gradient(rgba(30,64,175,.0
 .bt-short{display:none}
 @media(max-width:340px){.header-right .pill-btn{font-size:12.5px;padding:7px 9px}}
 .or-browse{display:none}
+.control-card .field select,.control-card .search-wrap input{font-size:15px}
+@media(max-width:560px){#cmdBtnPhone{font-weight:600!important}}
+@media(min-width:561px) and (max-width:1100px){.more-menu{display:none!important}.control-card .field label{font-size:11.5px!important;letter-spacing:.02em}.control-card>.site-header .header-right .field-language label{flex-wrap:nowrap!important;white-space:nowrap!important}.control-card>.site-header .header-right .ml-tag{font-size:11px;padding:1px 8px}}
+@media(min-width:561px){
+  .status-strip{display:none}
+  .top-tools{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:4px}
+  .top-tools .pill-btn,.top-tools .more-menu>summary{font-size:13px!important;font-weight:600!important;line-height:1.2!important;padding:5px 12px!important;min-height:0!important;height:auto!important;display:inline-flex!important;align-items:center;gap:5px;color:#0b1f6b;border:1px solid var(--line);background:#fff;border-radius:999px}
+  .control-card{padding-top:8px}
+  .top-tools .more-pop{left:auto;right:0}
+  .control-card>.site-header .header-right{display:flex!important;flex-direction:column;align-items:stretch}
+}
 @media(min-width:561px){
   .control-card{padding:14px 22px 16px;margin-bottom:12px}
   .control-card>.site-header{margin:0 0 10px;padding:0 0 8px}
@@ -425,9 +436,9 @@ body{background-color:#f4f7fb;background-image:linear-gradient(rgba(30,64,175,.0
   .control-card>.selectors{gap:12px}
 }
 @media(min-width:561px){.control-card>.site-header .header-right{grid-template-columns:minmax(0,1fr)}.control-card>.site-header .header-right .field-language{width:100%}}
-@media(min-width:700px) and (max-width:780px){.control-card>.site-header{justify-content:space-between}.control-card>.site-header .header-right{width:min(100%,340px)!important;margin:0 0 0 auto!important}}
-@media(min-width:561px) and (max-width:699px){.control-card>.site-header .header-right{width:100%!important;margin:0!important}}
-@media(min-width:700px) and (max-width:900px){.selectors{grid-template-columns:minmax(0,1.4fr) minmax(0,.9fr) minmax(0,1.1fr)!important}.selectors .field select{padding-left:8px;padding-right:6px}.selectors .field label{font-size:11px;letter-spacing:.02em;white-space:nowrap}}
+@media(min-width:700px) and (max-width:780px){.control-card>.site-header{justify-content:space-between}.control-card>.site-header .header-right{width:300px!important;margin:0 0 0 auto!important}}
+@media(min-width:561px) and (max-width:699px){.control-card>.site-header .header-right{width:300px!important;margin:0 0 0 auto!important}}
+@media(min-width:700px) and (max-width:900px){.selectors{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1.13fr)!important}.selectors .field select{padding-left:6px;padding-right:4px}.control-card .selectors .field{padding-left:10px;padding-right:10px}.selectors .field label{white-space:nowrap}}
 @media(min-width:561px) and (max-width:699px){.selectors .field.field-topic{grid-column:1/-1}}
 .lv-short{display:none}
 @media(max-width:560px){.lv-short{display:inline}}
@@ -641,7 +652,7 @@ window.shortsFor=function(r,code){
   </section>
 
   <div class="status-strip">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span id="resultSummary">Loading words…</span>  <button id="cmdBtnPhone" class="pill-btn no-print cmd-phone" type="button" style="width:auto;flex:0 0 auto;padding:8px 12px;font-size:13.5px">📋 Exam Command Words</button> <details class="more-menu no-print"><summary>⋯ More</summary><div class="more-pop"><button id="printBtn" class="pill-btn no-print" type="button" style="width:auto;flex:0 0 auto;padding:3px 12px;font-size:12px" title="Print or save as PDF every card matching the current filters">🖨️ Print / PDF</button><select id="printMode" class="no-print" aria-label="Print layout" style="font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px;color:#0b1f6b"><option value="list-topic" selected>Compact list, grouped by topic</option><option value="list">Compact list, A to Z</option><option value="cards">Cards with diagrams</option></select></div></details></div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span id="resultSummary">Loading words…</span>  <button id="cmdBtnPhone" class="pill-btn no-print cmd-phone" type="button" style="width:auto;flex:0 0 auto;padding:8px 12px;font-size:13.5px">📋 Exam Command Words</button> <details class="more-menu no-print"><summary>🖨 Print / PDF</summary><div class="more-pop"><button id="printBtn" class="pill-btn no-print" type="button" style="width:auto;flex:0 0 auto;padding:3px 12px;font-size:12px" title="Print or save as PDF every card matching the current filters">🖨️ Print / PDF</button><select id="printMode" class="no-print" aria-label="Print layout" style="font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px;color:#0b1f6b"><option value="list-topic" selected>Compact list, grouped by topic</option><option value="list">Compact list, A to Z</option><option value="cards">Cards with diagrams</option></select></div></details></div>
     <div class="legend-note"><span style="color:var(--red);font-weight:800">Red border / badge</span> = this word means something different in this subject than in everyday English</div>
   </div>
 
@@ -11097,6 +11108,13 @@ renderAll();
   var sy=document.createElement('span');sy.className='lbl-x';sy.textContent='';lbl.insertBefore(sy,t0.nextSibling);
   function place(){
     var card=document.querySelector('.control-card');
+    var tools=hr.querySelector('.top-tools');
+    if(!tools){tools=document.createElement('div');tools.className='top-tools';hr.insertBefore(tools,hr.firstChild);}
+    var cmdB=document.getElementById('cmdBtnPhone'),mm=document.querySelector('.more-menu'),sumEl=document.getElementById('resultSummary');
+    if(cmdB&&mm&&sumEl){
+      if(mq.matches){tools.appendChild(cmdB);tools.appendChild(mm);}
+      else{var par=sumEl.parentNode;par.appendChild(cmdB);par.appendChild(mm);}
+    }
     if(mq.matches){if(hd.parentNode!==card)card.insertBefore(hd,card.firstChild);hr.appendChild(lang);t0.nodeValue='';sy.innerHTML='🌐 Choose <span class="lbl-your">your </span>language';tl.textContent='3. Topic';}
     else{if(hd.parentNode===card)card.parentNode.insertBefore(hd,card);sel.insertBefore(lang,sel.firstChild);t0.nodeValue='';sy.textContent='🌐 Choose language';tl.textContent='3. Topic';}
   }
