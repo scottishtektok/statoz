@@ -219,6 +219,19 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-app
 }
 .scope-toggle button.active{background:#2f6bff;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 
+/* Desktop: topic dropdown replaces the chip rows */
+#topicChips{display:none!important}
+@media(min-width:561px){
+  .field.field-topic:not(.hidden){display:flex}
+}
+.sum-show,.sum-tail{display:none}
+.cmd-phone{display:inline-flex}
+.more-menu{position:relative;display:inline-block}
+.more-menu>summary{list-style:none;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;color:#0b1f6b}
+.more-menu>summary::-webkit-details-marker{display:none}
+.more-menu[open]>summary{border-color:var(--blue);color:var(--blue)}
+.more-menu .more-pop{position:absolute;z-index:30;top:30px;left:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(11,31,107,.15);padding:10px;display:flex;flex-direction:column;gap:8px;min-width:230px}
+.status-strip .legend-note{font-size:12.5px}
 /* Filter Chips & Course Status */
 .status-strip{
   display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;
@@ -361,6 +374,11 @@ body{background-color:#f4f7fb;background-image:linear-gradient(rgba(30,64,175,.0
 
 
 @media(min-width:781px){
+  .site-header{padding-bottom:12px;margin-bottom:14px}
+  .header-right{display:flex!important;width:min(100%,360px);align-self:center;margin-right:24px}
+  .header-right .field-language{width:100%}
+  .header-actions{display:none!important}
+  .site-header{justify-content:space-between}
   /* masthead spans exactly the Subject frame below it: left edge and width */
   .site-header .brand-lockup{flex:none;width:calc((100% - 76px) * 0.348485);margin-left:24px;min-width:0}
 }
@@ -391,7 +409,7 @@ body{background-color:#f4f7fb;background-image:linear-gradient(rgba(30,64,175,.0
   .field select{padding:7px 10px;min-height:42px;font-size:15px}
   .cmd-phone{display:inline-flex}
   .status-strip .legend-note{display:none}
-  #printBtn,#printMode{display:none!important}
+  #printBtn,#printMode,.more-menu{display:none!important}
   .sum-show,.sum-tail{display:none}
   .status-strip>div:first-child{width:100%;justify-content:space-between!important;gap:6px 10px!important}
   #resultSummary{font-size:14px}
@@ -573,7 +591,7 @@ window.shortsFor=function(r,code){
   </section>
 
   <div class="status-strip">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span id="resultSummary">Loading words…</span> <button id="printBtn" class="pill-btn no-print" type="button" style="width:auto;flex:0 0 auto;padding:3px 12px;font-size:12px" title="Print or save as PDF every card matching the current filters">🖨️ Print / PDF</button> <button id="cmdBtnPhone" class="pill-btn no-print cmd-phone" type="button" style="width:auto;flex:0 0 auto;padding:8px 12px;font-size:13.5px">📋 Exam Command Words</button> <select id="printMode" class="no-print" aria-label="Print layout" style="font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px;color:#0b1f6b"><option value="list-topic" selected>Compact list, grouped by topic</option><option value="list">Compact list, A to Z</option><option value="cards">Cards with diagrams</option></select></div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span id="resultSummary">Loading words…</span>  <button id="cmdBtnPhone" class="pill-btn no-print cmd-phone" type="button" style="width:auto;flex:0 0 auto;padding:8px 12px;font-size:13.5px">📋 Exam Command Words</button> <details class="more-menu no-print"><summary>⋯ More</summary><div class="more-pop"><button id="printBtn" class="pill-btn no-print" type="button" style="width:auto;flex:0 0 auto;padding:3px 12px;font-size:12px" title="Print or save as PDF every card matching the current filters">🖨️ Print / PDF</button><select id="printMode" class="no-print" aria-label="Print layout" style="font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px;color:#0b1f6b"><option value="list-topic" selected>Compact list, grouped by topic</option><option value="list">Compact list, A to Z</option><option value="cards">Cards with diagrams</option></select></div></details></div>
     <div class="legend-note"><span style="color:var(--red);font-weight:800">Red border / badge</span> = this word means something different in this subject than in everyday English</div>
   </div>
 
@@ -11015,6 +11033,29 @@ renderAll();
  var ls=document.getElementById('language');if(ls)ls.addEventListener('change',function(){if(bar.classList.contains('show'))paint();});
  if(ios&&!standalone&&/safari/i.test(navigator.userAgent)&&!/crios|fxios|edgios/i.test(navigator.userAgent)){setTimeout(show,4000);}
  if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+})();
+</script>
+<script>
+(function(){
+  var mq=window.matchMedia('(min-width:561px)');
+  var lang=document.querySelector('.field-language'),sel=document.querySelector('.selectors'),hr=document.querySelector('.header-right');
+  var lbl=document.getElementById('lblLanguage'),tl=document.getElementById('lblTopic');
+  if(!lang||!sel||!hr||!lbl||!tl)return;
+  var t0=lbl.firstChild;
+  function place(){
+    if(mq.matches){hr.appendChild(lang);t0.nodeValue='🌐 Choose your language ';tl.textContent='3. Topic';}
+    else{sel.insertBefore(lang,sel.firstChild);t0.nodeValue='🌐 Choose language ';tl.textContent='3. Topic';}
+  }
+  var wide=window.matchMedia('(min-width:781px)'),hd=document.querySelector('.site-header');
+  function sync(){
+    if(!wide.matches){hr.style.width='';hr.style.marginRight='';return;}
+    var r=sel.getBoundingClientRect(),h=hd.getBoundingClientRect();
+    var col=(r.width-28)*1.15/3.3;
+    hr.style.width=col+'px';hr.style.marginRight=Math.max(0,h.right-r.right)+'px';
+  }
+  window.addEventListener('resize',sync);window.addEventListener('load',sync);setTimeout(sync,300);
+  place();sync();
+  (mq.addEventListener?mq.addEventListener('change',place):mq.addListener(place));
 })();
 </script>
 </body>
