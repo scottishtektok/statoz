@@ -176,7 +176,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-app
 .field.field-language{background:#fff9eb;border:2px solid #fcd34d}
 .field.field-language label{color:#92400e}
 .field.field-language label{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 10px}
-.field.field-language .ml-tag{margin:0}
+.field.field-language .ml-tag{margin:0 0 0 auto}
+.field.field-language label{width:100%}
 @media(max-width:560px){.field.field-language .ml-long{display:none}.field.field-language .ml-tag{position:relative;top:-2px;white-space:nowrap;padding:1px 8px;font-size:12.5px;line-height:1.2;border-radius:10px}.field.field-language label{gap:2px 8px;flex-wrap:nowrap}}
 @media(max-width:340px){.field.field-language .ml-tag{font-size:10px;padding:1px 6px}.field.field-language label{font-size:12px}}
 .selectors{align-items:stretch}.field{display:flex;flex-direction:column}.field select{margin-top:auto}
@@ -225,8 +226,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-app
   .field.field-topic:not(.hidden){display:flex}
   .header-actions{display:none!important}
   .header-right .ml-long{display:none}
-  .header-right .field-language label{width:100%}
-  .header-right .field-language .ml-tag{margin-left:auto}
 }
 @media(min-width:561px) and (max-width:1100px){.lbl-your{display:none}}
 @media(min-width:561px) and (max-width:900px){.header-right .field-language label{flex-wrap:wrap!important;white-space:normal!important}}
