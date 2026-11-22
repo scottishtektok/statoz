@@ -10511,9 +10511,8 @@ async function renderAll() {
   clearSearchBtn.classList.toggle('show', q.length > 0);
   (function(){var h=document.getElementById('searchHint');if(!h)return;
     if(q.length>0&&!allScope()&&selectedTopic!=='ALL'){
-      h.innerHTML='💡 Searching only inside <strong>'+escapeHtml(selectedTopic)+'</strong>. Choose <strong>All Topics</strong> to search the whole course. <button type="button" id="searchHintAll">Search all topics</button>';
+      h.innerHTML='💡 Searching only inside <strong>'+escapeHtml(selectedTopic)+'</strong>. Choose <strong>All Topics</strong> to search the whole course.';
       h.classList.remove('hidden');
-      var b=document.getElementById('searchHintAll');if(b)b.onclick=function(){selectedTopic='ALL';currentPage=1;renderAll();searchEl.focus();};
     }else{h.classList.add('hidden');h.innerHTML='';}
   })();
 
