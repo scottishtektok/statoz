@@ -224,6 +224,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-app
 @media(min-width:561px){
   .field.field-topic:not(.hidden){display:flex}
   .header-actions{display:none!important}
+  .header-right .ml-long{display:none}
+  .header-right .field-language label{width:100%}
+  .header-right .field-language .ml-tag{margin-left:auto}
+}
+@media(min-width:561px) and (max-width:1100px){.lbl-your{display:none}}
+@media(min-width:561px) and (max-width:900px){.header-right .field-language label{flex-wrap:wrap!important;white-space:normal!important}}
+@media(min-width:561px){
+  .header-right .field-language label{flex-wrap:nowrap;white-space:nowrap}
 }
 .sum-show,.sum-tail{display:none}
 .cmd-phone{display:inline-flex}
@@ -11045,10 +11053,11 @@ renderAll();
   var lbl=document.getElementById('lblLanguage'),tl=document.getElementById('lblTopic');
   if(!lang||!sel||!hr||!lbl||!tl)return;
   var t0=lbl.firstChild;
+  var sy=document.createElement('span');sy.className='lbl-x';sy.textContent='';lbl.insertBefore(sy,t0.nextSibling);
   function place(){
     var card=document.querySelector('.control-card');
-    if(mq.matches){if(hd.parentNode!==card)card.insertBefore(hd,card.firstChild);hr.appendChild(lang);t0.nodeValue='🌐 Choose your language ';tl.textContent='3. Topic';}
-    else{if(hd.parentNode===card)card.parentNode.insertBefore(hd,card);sel.insertBefore(lang,sel.firstChild);t0.nodeValue='🌐 Choose language ';tl.textContent='3. Topic';}
+    if(mq.matches){if(hd.parentNode!==card)card.insertBefore(hd,card.firstChild);hr.appendChild(lang);t0.nodeValue='';sy.innerHTML='🌐 Choose <span class="lbl-your">your </span>language';tl.textContent='3. Topic';}
+    else{if(hd.parentNode===card)card.parentNode.insertBefore(hd,card);sel.insertBefore(lang,sel.firstChild);t0.nodeValue='';sy.textContent='🌐 Choose language';tl.textContent='3. Topic';}
   }
   var wide=window.matchMedia('(min-width:781px)');
   function sync(){
