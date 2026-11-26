@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- STATOZ (c) Scottish TekTok. All rights reserved. Unauthorised copying, republication or reuse of this file, its content, diagrams or translations is prohibited. Build 4fe1717250aa -->
+<!-- STATOZ (c) Scottish TekTok. All rights reserved. Unauthorised copying, republication or reuse of this file, its content, diagrams or translations is prohibited. Build b5b525181ddc -->
 <meta name="copyright" content="(c) Scottish TekTok. All rights reserved.">
-<meta name="statoz-build" content="4fe1717250aa">
+<meta name="statoz-build" content="b5b525181ddc">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="manifest" href="manifest.webmanifest">
@@ -5815,6 +5815,17 @@ function prism(p,pts,z0,h,col,o){o=o||{};var n=pts.length,i,out='',area=0,sx=o.s
   out+=ln.apply(null,p(f.a[0],f.a[1],z0).concat(p(f.a[0]+sx,f.a[1],z0+h),[C.navy,2]))+ln.apply(null,p(l.b[0],l.b[1],z0).concat(p(l.b[0]+sx,l.b[1],z0+h),[C.navy,2]));}
  out+=pg(P(pts.map(function(q){return p(q[0]+sx,q[1],z0+h);})),o.topc||col.top,C.navy,o.sw||2);
  return out;}
+function prismC(p,pts,z0,h,col){var n=pts.length,i,out='',area=0,N=[];
+ for(i=0;i<n;i++){var a=pts[i],b=pts[(i+1)%n];area+=a[0]*b[1]-b[0]*a[1];}
+ var sg=area>0?1:-1;
+ for(i=0;i<n;i++){var a=pts[i],b=pts[(i+1)%n],ex=b[0]-a[0],ey=b[1]-a[1],L=Math.sqrt(ex*ex+ey*ey)||1,nx=sg*ey/L,ny=-sg*ex/L;N.push({a:a,b:b,nx:nx,ny:ny,v:nx+ny>0.0001,t:Math.max(0,Math.min(1,(nx-ny)/(Math.abs(nx)+Math.abs(ny))*0.5+0.5))});}
+ var low=[],hi=[];
+ N.forEach(function(f){if(!f.v)return;var c=mix(col.lo,col.hi,f.t);out+=pg(P([p(f.a[0],f.a[1],z0),p(f.b[0],f.b[1],z0),p(f.b[0],f.b[1],z0+h),p(f.a[0],f.a[1],z0+h)]),c,c,0.6);});
+ N.forEach(function(f,i){if(!f.v)return;var q=N[(i+n-1)%n],hard=!q.v||(q.nx*f.nx+q.ny*f.ny)<0.93;
+  out+='<polyline points="'+P([p(f.a[0],f.a[1],z0),p(f.b[0],f.b[1],z0)])+'" fill="none" stroke="'+C.navy+'" stroke-width="2" stroke-linecap="round"/>';
+  if(hard)out+=ln.apply(null,p(f.a[0],f.a[1],z0).concat(p(f.a[0],f.a[1],z0+h),[C.navy,2]));
+  var nx2=N[(i+1)%n];if(!nx2.v)out+=ln.apply(null,p(f.b[0],f.b[1],z0).concat(p(f.b[0],f.b[1],z0+h),[C.navy,2]));});
+ out+=pg(P(pts.map(function(q){return p(q[0],q[1],z0+h);})),col.top,C.navy,2);return out;}
 function box(p,x0,x1,y0,y1,z0,h,col,o){return prism(p,rectPts(x0,x1,y0,y1),z0,h,col,o);}
 function cyl(p,cx,cy,r,z0,h,col,o){return prism(p,circPts(cx,cy,r,36),z0,h,col,o);}
 function hole(p,cx,cy,r,z){var pts=circPts(cx,cy,r,36);return pg(P(pts.map(function(q){return p(q[0],q[1],z);})),'#334155',C.navy,2);}
@@ -5879,10 +5890,11 @@ function PQ(x){return iso(x,122,0.95);}
 function lb(p,x,y,z,t,c){var q=p(x,y,z);return lab(q[0],q[1],t,c||C.navy,'middle',13);}
 G(['Boolean union','Union','Add','Add operation'],function(){
  var p=PQ(100),q=PQ(300),o='';
- o+=box(p,-40,0,-22,22,0,34,BLUE)+cyl(p,6,0,20,0,34,YEL);
+ o+=box(p,-40,0,-22,22,0,34,BLUE)+cyl(p,0,0,22,0,34,YEL);
  o+=lab(70,176,'A',C.navy,'middle',13)+lab(130,176,'B',C.navy,'middle',13);
  o+=ar(176,112,224,112,C.red,2.6);
- o+=box(q,-40,0,-22,22,0,34,BLUE)+cyl(q,6,0,20,0,34,BLUE);
+ var up=[[-40,-22],[-40,22]],k,n=24;for(k=0;k<=n;k++){var t=Math.PI/2-k*Math.PI/n;up.push([22*Math.cos(t),22*Math.sin(t)]);}
+ o+=prism(q,up,0,34,BLUE);
  o+=lab(300,176,'A + B',C.red,'middle',13);
  return F('BOOLEAN UNION',o,'Union (add) = join two solids into one','Total = both shapes together');});
 G(['Boolean subtraction','Subtract','Subtract operation'],function(){
